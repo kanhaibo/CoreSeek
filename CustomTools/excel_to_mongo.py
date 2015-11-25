@@ -78,6 +78,15 @@ if  __name__ == '__main__':
 #     ExcelToMogo('/Users/kanhaibo/temp/115届广交会/', db="cantonfair115",
 #                 user="cantonfair", passwd="cantonfair")
 #     ExcelToMogo('/Users/kanhaibo/temp/116届广交会/', db="cantonfair116",
+# #                 user="cantonfair", passwd="cantonfair")
+#     excel_to_mogo('/Users/kanhaibo/temp/宏观钢铁行业/', db="宏观钢铁行业",
 #                 user="cantonfair", passwd="cantonfair")
-    excel_to_mogo('/Users/kanhaibo/temp/宏观钢铁行业/', db="宏观钢铁行业",
-                user="cantonfair", passwd="cantonfair")
+    for x in os.listdir('/Users/kanhaibo/temp/87国宏观数据'):
+        temp_path = '/Users/kanhaibo/temp/87国宏观数据/' + x
+        if (os.path.isdir(temp_path)):
+            excel_to_mogo(temp_path, db=x,
+                          user="cantonfair",
+                          passwd="cantonfair")
+            print x
+
+#     if(os.path.isdir(path + '/' + f)):

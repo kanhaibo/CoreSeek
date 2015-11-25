@@ -19,7 +19,7 @@ connect(alias='cantonfair117',
 class cpi(DynamicDocument):
 
     Date = StringField(required=True)
-    date = DateTimeField(default=datetime.date().month())
+#     date = DateTimeField(default=datetime.date().month())
     meta = {'db_alias': 'country_pakistan'}
 
 
@@ -93,11 +93,13 @@ class enterprise(DynamicDocument):
     meta = {'db_alias': 'chinatsi'}
 
 if __name__ == '__main__':
-    for x in cpi.objects():
-        print x.Date
-        print x['CPI同比']
-#     collection = steel_enterprises_directory._get_collection()
-#     print collection.find({'geometry': {'$exists': True}}).count()
+    for p in steel_enterprises_directory.objects(Country='Pakistan'):
+        print p['label_flag']
+#     for x in cpi.objects():
+#         print x.Date
+#         print x['CPI同比']
+    collection = steel_enterprises_directory._get_collection()
+#     print collection.find({'Country': {'$exists': True}}).count()
 #     print steel_enterprises_directory.objects(label_flag=1).
 #sum('YearEstablished')
 #     collection.update({'geometry': {'$exists': False}},
