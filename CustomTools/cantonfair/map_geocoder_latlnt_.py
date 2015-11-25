@@ -33,6 +33,16 @@ class GeocoderToLatLnt(threading.Thread):
         @summary: 重写父类run方法,在线程启动后执行该方法的代码
         '''
         self.collection_to_latlnt()
+#         self.collection_add_column()
+
+    def collection_add_column(self):
+        conn = MongoClient('192.168.0.17:27050')
+        dbTemp = conn[self.db]
+        dbTemp[self.cols].update({'geometry': {'$exists': False}},
+                        {'$set': {'label_flag': 0}}, multi=True)
+        dbTemp[self.cols].update({'geometry': {'$exists': True}},
+                {'$set': {'label_flag': 2}}, multi=True)
+        conn.close()
 
     def collection_to_latlnt(self):
         '''
@@ -68,7 +78,8 @@ class GeocoderToLatLnt(threading.Thread):
                         if tempLatLnt != '':
                             dbTemp[self.cols].update(
                                             {'_id': p['_id']},
-                                            {'$set': {'geometry': tempLatLnt}})
+                                            {'$set': {'geometry': tempLatLnt,
+                                                      'label_flag': 2}})
                 except Exception, e:
                     pass
                 finally:
@@ -149,14 +160,14 @@ def main(db='cantonfair117'):
 
     threads = []
     for m in temp_cols:
-#         threads.append(GeocoderToLatLnt("thread_" + str(m), db, m))
-        threads.append(DisplayLatLntResults("thread_" + str(m), db, m))
+        threads.append(GeocoderToLatLnt("thread_" + str(m), db, m))
+#         threads.append(DisplayLatLntResults("thread_" + str(m), db, m))
     for thread_single in threads:
         thread_single.start()
 #     print time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
 if __name__ == '__main__':
-    main('一带一路国家钢企名录')
+    main('cantonfair110')
 #     p1 = multiprocessing.Process(target=main, args=('cantonfair116',))
 #     p2 = multiprocessing.Process(target=main, args=('cantonfair115',))
 #     p1.start()

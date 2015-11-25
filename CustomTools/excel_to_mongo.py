@@ -49,9 +49,10 @@ def excel_to_mogo(dirname, db="cantonfair110", user="cantonfair",
                     #循环插入此文档内部的数据
                     dicHead = []
                     for pp in range(0, ncols):
-                        dicHead.append(sh.row_values(0)[pp].encode('utf-8').
-                                       replace('　', '').replace(' ', '').
-                                       rstrip())
+                        dicHead.append(str(sh.row_values(0)[pp]).
+                                       encode('utf-8').replace('　', '').
+                                       replace(' ', '').
+                                       replace('.0', '').rstrip())
                     for ll in range(1, nrows):
                         tempDb["" + os.path.splitext(i)[0] + ""].insert(dict(
                                              zip(dicHead, sh.row_values(ll))))
@@ -78,5 +79,5 @@ if  __name__ == '__main__':
 #                 user="cantonfair", passwd="cantonfair")
 #     ExcelToMogo('/Users/kanhaibo/temp/116届广交会/', db="cantonfair116",
 #                 user="cantonfair", passwd="cantonfair")
-    excel_to_mogo('/Users/kanhaibo/temp/一带一路国家钢企名录/', db="一带一路国家钢企名录",
+    excel_to_mogo('/Users/kanhaibo/temp/宏观钢铁行业/', db="宏观钢铁行业",
                 user="cantonfair", passwd="cantonfair")

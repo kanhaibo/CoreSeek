@@ -87,20 +87,6 @@ def address_to_LatLnts(address=''):
 
 
 if  __name__ == '__main__':
-    print address_to_LatLnts('Mile 7 1/2, Jalan Tuaran, Locked Bag 87, 88992 Kota Kinabalu, Sabah, Malaysia'.replace(' ', '+'))
-#     count = 1
-#     error = 1
-#     for i in range(1, 25):
-#         try:
-#             response = address_to_LatLnt('103 PATTANI BLDG , M G ROAD ,'
-#                                 ' RAJKOT.GUJ INDIA'.replace(' ', '+'),
-#                                 key='AIzaSyDMf9YpOmo9ssRqpqlvQlzLCGzHn2TQ6Rk')
-#     #         print json.loads(response)
-#             if json.loads(response)['status'] == 'ZERO_RESULTS':
-#                 count = count + 1
-#             else:
-#                 print json.loads(response)
-#         except:
-#             print json.loads(response)
-#         finally:
-#             print json.loads(response)
+    print address_to_LatLnts('Mile 7 1/2, Jalan Tuaran, Locked Bag 87, 88992'\
+                             ' Kota Kinabalu, Sabah, Malaysia'.
+                             replace(' ', '+'))

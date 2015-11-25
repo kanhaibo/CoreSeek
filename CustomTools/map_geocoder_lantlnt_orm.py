@@ -12,6 +12,8 @@ import datetime
 connect(alias='OneBeltOneRoad', host='mongodb://192.168.0.17:27050/一带一路国家钢企名录')
 connect(alias='chinatsi', host='mongodb://192.168.0.17:27050/chinatsi')
 connect(alias='country_pakistan', host='mongodb://192.168.0.17:27050/巴基斯坦')
+connect(alias='cantonfair117',
+        host='mongodb://192.168.0.17:27050/cantonfair117')
 
 
 class cpi(DynamicDocument):
@@ -96,7 +98,8 @@ if __name__ == '__main__':
         print x['CPI同比']
 #     collection = steel_enterprises_directory._get_collection()
 #     print collection.find({'geometry': {'$exists': True}}).count()
-#     print steel_enterprises_directory.objects(label_flag=1).sum('YearEstablished')
+#     print steel_enterprises_directory.objects(label_flag=1).
+#sum('YearEstablished')
 #     collection.update({'geometry': {'$exists': False}},
 #                         {'$set': {'label_flag': 0}}, multi=True)
 #     vtemp = steel_enterprises_directory._get_collection()
