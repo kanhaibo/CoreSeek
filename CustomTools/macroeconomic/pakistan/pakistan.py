@@ -49,5 +49,6 @@ def oper_gdp():
 
 
 if __name__ == '__main__':
+    pass
 #     oper_cpi()
 #     oper_gdp() = 'sdfds'
