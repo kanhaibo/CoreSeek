@@ -98,7 +98,7 @@ if __name__ == '__main__':
 #     for x in cpi.objects():
 #         print x.Date
 #         print x['CPI同比']
-    collection = steel_enterprises_directory._get_collection()
+#     collection = steel_enterprises_directory._get_collection()
 #     print collection.find({'Country': {'$exists': True}}).count()
 #     print steel_enterprises_directory.objects(label_flag=1).
 #sum('YearEstablished')
