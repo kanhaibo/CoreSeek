@@ -20,7 +20,8 @@ def excel_to_mogo(dirname, db="cantonfair110", user="cantonfair",
         for i in l:
             fname = ''
             if os.path.isfile(dirname + i) and i != '.DS_Store'\
-                                        and os.path.splitext(i)[1] != '.txt':
+                                        and os.path.splitext(i)[1] != '.txt'\
+                                        and '~' not in os.path.splitext(i)[0]:
                 fname = dirname + i
                 print i
                 xlrd.Book.encoding = 'gbk'
@@ -64,13 +65,13 @@ def excel_to_mogo(dirname, db="cantonfair110", user="cantonfair",
 
 
 if  __name__ == '__main__':
-    excel_to_mogo('/Users/kanhaibo/temp/一带一路国家钢企名录/', db='一带一路国家钢企名录',
-                  user="cantonfair",
-                  passwd="cantonfair")
-#     for x in os.listdir('/Users/kanhaibo/temp/87国宏观数据'):
-#         temp_path = '/Users/kanhaibo/temp/87国宏观数据/' + x + '/'
-#         if (os.path.isdir(temp_path)):
-#             print temp_path
-#             excel_to_mogo(temp_path, db=x,
-#                           user="cantonfair",
-#                           passwd="cantonfair")
+#     excel_to_mogo('/Users/kanhaibo/temp/一带一路国家钢企名录/', db='一带一路国家钢企名录',
+#                   user="cantonfair",
+#                   passwd="cantonfair")
+    for x in os.listdir('/Users/kanhaibo/temp/87国宏观数据'):
+        temp_path = '/Users/kanhaibo/temp/87国宏观数据/' + x + '/'
+        if (os.path.isdir(temp_path)):
+            print temp_path
+            excel_to_mogo(temp_path, db=x,
+                          user="cantonfair",
+                    passwd="cantonfair")

@@ -8,6 +8,7 @@ Created on 2015-11-23
 from mongoengine import *
 import json
 import datetime
+import pinyin
 
 connect(alias='OneBeltOneRoad', host='mongodb://192.168.0.17:27050/一带一路国家钢企名录')
 connect(alias='chinatsi', host='mongodb://192.168.0.17:27050/chinatsi')
@@ -16,15 +17,23 @@ connect(alias='cantonfair117',
         host='mongodb://192.168.0.17:27050/cantonfair117')
 
 
-class cpi(DynamicDocument):
+class AIIBCountry(DynamicDocument):
+    AIIB_Country = StringField()
+    AIIB_Country_spell = StringField()
 
-    Date = StringField(required=True)
-#     date = DateTimeField(default=datetime.date().month())
-    meta = {'db_alias': 'country_pakistan'}
+    def clean(self):
+        self.AIIB_Country_spell = pinyin.get(self.AIIB_Country)
+    meta = {'db_alias': 'OneBeltOneRoad'}
 
 
-def pakistan_option():
-    pass
+class steel_enterprises_directory_country(DynamicDocument):
+
+    country_name = StringField(required=True)
+    country_name_spell = StringField()
+
+    def clean(self):
+        self.country_name_spell = pinyin.get(self.country_name)
+    meta = {'db_alias': 'OneBeltOneRoad'}
 
 
 class steel_enterprises_directory(DynamicDocument):
@@ -93,8 +102,16 @@ class enterprise(DynamicDocument):
     meta = {'db_alias': 'chinatsi'}
 
 if __name__ == '__main__':
-    for p in steel_enterprises_directory.objects(Country='Pakistan'):
-        print p['label_flag']
+    from pymongo import MongoClient
+    conn = MongoClient('192.168.100.222:27017')
+    db = conn['一带一路国家钢企名录']
+    for i in db['AIIBCountry'].find():
+        db['AIIBCountry'].update({'_id': i['_id']},
+                                {'$set': {'AIIB_Country_spell':
+                                pinyin.get(i['AIIB_Country'])}})
+    conn.close()
+#     for p in steel_enterprises_directory.objects(Country='Pakistan'):
+#         print p['label_flag']
 #     for x in cpi.objects():
 #         print x.Date
 #         print x['CPI同比']
