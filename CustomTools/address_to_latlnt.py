@@ -10,10 +10,10 @@ modify_date:2015-11-19
 comment:增加中国地转换接口
 '''
 
-import urllib2
+import urllib.request
 import socket
-import json
 import redis
+import json
 #存放所有的key
 
 
@@ -22,12 +22,12 @@ def address_to_LatLnt(address='', key='', cn=True):
     通过传进来的地址得到经纬度
     '''
     if cn:
-        response = urllib2.urlopen('https://maps.google.cn/maps/api/geocode/'
-                           'json?address=%s&sensor=true&key=%s&language=zh-CN'
-                            % (address, key), timeout=1).read()
+        response = urllib.request.urlopen('https://maps.google.cn/maps/api/'
+                    'geocode/json?address=%s&sensor=true&key=%s&language=zh-CN'
+                        % (address, key), timeout=1).read()
     else:
-        response = urllib2.urlopen('https://maps.googleapis.com/maps/api/'
-                               'geocode/json?address=%s&key=%s'\
+        response = urllib.request.urlopen('https://maps.googleapis.com/maps/'
+                               'api/geocode/json?address=%s&key=%s'\
                                % (address, key), timeout=1).read()
     return response
 
@@ -79,14 +79,15 @@ def address_to_LatLnts(address=''):
     key = return_key()
     if key == 'error':
         return ''
-    response = address_to_LatLnt(address, key)
+    response = address_to_LatLnt(address, str(key, 'utf-8'))
     try:
-        return json.loads(response)['results'][0]['geometry']
+        return json.loads(str(response, 'utf-8'))['results'][0]['geometry']
     except:
         return ''
+#         return json.loads(str(response.decode('utf-8')))
 
 
 if  __name__ == '__main__':
-    print address_to_LatLnts('Mile 7 1/2, Jalan Tuaran, Locked Bag 87, 88992'\
+    print(address_to_LatLnts('Mile 7 1/2, Jalan Tuaran, Locked Bag 87, 88992'\
                              ' Kota Kinabalu, Sabah, Malaysia'.
-                             replace(' ', '+'))
+                             replace(' ', '+')))

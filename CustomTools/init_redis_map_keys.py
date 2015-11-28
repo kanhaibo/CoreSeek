@@ -264,15 +264,15 @@ def init_redis_keys():
     r.set('AIzaSyB8JFS3wyAAfno0XYa-M_lelcwMJziXcn0', 1)
     r.set('AIzaSyAh5kA3jhtul6rNWBjG9d1hTmBaY2o7bA4', 1)
     r.set('AIzaSyDXKR1vjVZtEZr12itoL1yp825qpHJZ7ys', 1)
-    print 'ok'
+    print('ok')
 
 
 def display_redis_keys():
     r = redis.Redis(host='127.0.0.1', port=6379, db=0)
     keys = r.keys()
     for mm in keys:
-        print mm,
-        print r.get(mm)
+        print(str(mm),)
+        print(r.get(mm))
 
 if __name__ == '__main__':
 #     init_redis_keys()
