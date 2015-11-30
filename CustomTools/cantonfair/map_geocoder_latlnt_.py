@@ -52,19 +52,19 @@ class GeocoderToLatLnt(threading.Thread):
         dbTemp = conn[self.db]
         addressSearch = ''
         if dbTemp[self.cols].find({'地址': {'$exists': True}}).count() > 0:
-            addressSearch = u'地址'
+            addressSearch = '地址'
         elif dbTemp[self.cols].find({'联系地址': {'$exists': True}}).count() > 0:
-            addressSearch = u'联系地址'
+            addressSearch = '联系地址'
         elif dbTemp[self.cols].find({'HeadOffice': {'$exists': True}})\
             .count() > 0:
-            addressSearch = u'HeadOffice'
+            addressSearch = 'HeadOffice'
         elif dbTemp[self.cols].find({'Address地址': {'$exists': True}})\
             .count() > 0:
-            addressSearch = u'Address地址'
+            addressSearch = 'Address地址'
         else:
             addressSearch = ''
         if addressSearch != '':
-            print self.cols + 'is activing '
+            print(self.cols + 'is activing ')
             for p in\
                 dbTemp[self.cols].find({"geometry": {'$exists': False}}).\
                     batch_size(100):
@@ -73,18 +73,18 @@ class GeocoderToLatLnt(threading.Thread):
                         try:
                             tempLatLnt = address_to_latlnt.address_to_LatLnts(
                             p[addressSearch].replace(' ', '+'))
-                        except Exception, e:
+                        except Exception as e:
                             tempLatLnt = ''
                         if tempLatLnt != '':
                             dbTemp[self.cols].update(
                                             {'_id': p['_id']},
                                             {'$set': {'geometry': tempLatLnt,
                                                       'label_flag': 2}})
-                except Exception, e:
+                except Exception as e:
                     pass
                 finally:
                     pass
-            print self.cols + 'is over '
+            print(self.cols + 'is over ')
         conn.close()
 
 
@@ -119,12 +119,12 @@ class DisplayLatLntResults(threading.Thread):
             receive_all = dbTemp[self.cols].find().count()
             receive_latlnt = dbTemp[self.cols].find(
                             {"geometry": {'$exists': True}}).count()
-        except Exception, e:
+        except Exception as e:
             pass
         finally:
             conn.close()
 #         print str(receive_all) + '+'
-        print '%s中原有%d已更新%d' % (self.cols, receive_all, receive_latlnt)
+        print('%s中原有%d已更新%d' % (self.cols, receive_all, receive_latlnt))
 
 
 # def check_googlemap_latlnt():

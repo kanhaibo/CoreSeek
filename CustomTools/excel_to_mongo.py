@@ -14,7 +14,7 @@ def excel_to_mogo(dirname, db="cantonfair110", user="cantonfair",
                 passwd="cantonfair"):
 #检测此文件是否存在
     if not os.path.exists(dirname):
-        print '不是有效的 目录'
+        print('不是有效的 目录')
     else:
         l = os.listdir(dirname)
         for i in l:
@@ -23,7 +23,7 @@ def excel_to_mogo(dirname, db="cantonfair110", user="cantonfair",
                                         and os.path.splitext(i)[1] != '.txt'\
                                         and '~' not in os.path.splitext(i)[0]:
                 fname = dirname + i
-                print i
+                print(i)
                 xlrd.Book.encoding = 'gbk'
                 bk = xlrd.open_workbook(fname)
 #                 shxrange = range(bk.nsheets)
@@ -58,8 +58,8 @@ def excel_to_mogo(dirname, db="cantonfair110", user="cantonfair",
                         tempDb["" + os.path.splitext(i)[0] + ""].insert(dict(
                                              zip(dicHead, sh.row_values(ll))))
                     conn.close()
-                except Exception, e:
-                    print e
+                except Exception as  e:
+                    print(e)
                 finally:
                     conn.close()
 
@@ -71,7 +71,7 @@ if  __name__ == '__main__':
     for x in os.listdir('/Users/kanhaibo/temp/87国宏观数据'):
         temp_path = '/Users/kanhaibo/temp/87国宏观数据/' + x + '/'
         if (os.path.isdir(temp_path)):
-            print temp_path
+            print(temp_path)
             excel_to_mogo(temp_path, db=x,
                           user="cantonfair",
                     passwd="cantonfair")

@@ -5,8 +5,11 @@ Created on 2015-11-23
 @summary: 更新数据库中还有address地址的经纬度,通过orm映射的方式。
 @author: kanhaibo
 '''
-from mongoengine import *
-import json
+from mongoengine import connect
+from mongoengine import DynamicDocument
+from mongoengine import StringField
+from mongoengine import IntField
+import simplejson
 import datetime
 import pinyin
 
@@ -15,6 +18,11 @@ connect(alias='chinatsi', host='mongodb://192.168.0.17:27050/chinatsi')
 connect(alias='country_pakistan', host='mongodb://192.168.0.17:27050/巴基斯坦')
 connect(alias='cantonfair117',
         host='mongodb://192.168.0.17:27050/cantonfair117')
+
+
+class 渤海看(DynamicDocument):
+    阚海波 = StringField()
+    meta = {'db_alias': 'OneBeltOneRoad'}
 
 
 class AIIBCountry(DynamicDocument):

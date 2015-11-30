@@ -13,7 +13,7 @@ comment:增加中国地转换接口
 import urllib.request
 import socket
 import redis
-import json
+from simplejson import loads
 #存放所有的key
 
 
@@ -81,7 +81,7 @@ def address_to_LatLnts(address=''):
         return ''
     response = address_to_LatLnt(address, str(key, 'utf-8'))
     try:
-        return json.loads(str(response, 'utf-8'))['results'][0]['geometry']
+        return loads(str(response, 'utf-8'))['results'][0]['geometry']
     except:
         return ''
 #         return json.loads(str(response.decode('utf-8')))
